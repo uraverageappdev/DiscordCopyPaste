@@ -1,32 +1,39 @@
 #!/bin/bash
 
-killall Discord
+killall Discord &>/dev/null
 
-rm -r "/Applications/Discord.app"
+rm -r "/Applications/Discord.app" &>/dev/null
 
 clear
 
-echo -e "Welcome to the CopyPaste Discord Installer for macOS!\nThis will install/update your Discord app.\nMade by errivi.\n"
+echo "Discord in One Click v.1\nCoded by errivi\nThis is not affiliated with Discord.\n\n"
 
 if [ -f "/Applications/TemporaryFiles/_dis.dmg" ]; then
-    rm "/Applications/TemporaryFiles/_dis.dmg"
+    rm "/Applications/TemporaryFiles/_dis.dmg" &>/dev/null
 fi
 
 mkdir -p "/Applications/TemporaryFiles"
 
-osascript -e 'display notification "Sit and relax while we install Discord..." with title "Discord"'
+echo "Downloading Discord..."
 
-curl -o "/Applications/TemporaryFiles/_dis.dmg" "https://dl.discordapp.net/apps/osx/0.0.276/Discord.dmg"
+curl -o "/Applications/TemporaryFiles/_dis.dmg" "https://dl.discordapp.net/apps/osx/0.0.276/Discord.dmg" &>/dev/null
 
-hdiutil attach "/Applications/TemporaryFiles/_dis.dmg"
+echo "Extracting Discord..."
 
-cp -R "/Volumes/Discord/Discord.app" "/Applications/"
+hdiutil attach "/Applications/TemporaryFiles/_dis.dmg" &>/dev/null
 
-osascript -e 'display notification "Done. Enjoy chatting" with title "Discord"'
+echo "Installing..."
 
-hdiutil detach "/Volumes/Discord"
+cp -R "/Volumes/Discord/Discord.app" "/Applications/" &>/dev/null
 
-rm "/Applications/TemporaryFiles/_dis.dmg"
+echo "Install complete! Cleaning up temporary files..."
 
-rmdir "/Applications/TemporaryFiles"
+hdiutil detach "/Volumes/Discord" &>/dev/null
 
+rm "/Applications/TemporaryFiles/_dis.dmg" &>/dev/null
+
+rmdir "/Applications/TemporaryFiles" &>/dev/null
+
+clear
+
+echo "Done!"
